@@ -3,6 +3,7 @@ repetita.Preload = function() {
 };
 
 repetita.Preload.prototype = {
+
     preload: function() {
 
         this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');
@@ -10,7 +11,7 @@ repetita.Preload.prototype = {
 
         this.load.setPreloadSprite(this.preloadBar);
 
-        this.load.bitmapFont('mainFont', 'assets/fonts/silkscreen-white-88/font.png', 'assets/fonts/silkscreen-white-88/font.fnt');
+        this.load.bitmapFont('mainFont', 'assets/fonts/kubasta-36-white/font.png', 'assets/fonts/kubasta-36-white/font.fnt');
 
         this.load.onLoadComplete.add(this.onLoadComplete, this);
 
@@ -32,4 +33,5 @@ repetita.Preload.prototype = {
         this.ready = true;
 
     }
+
 };
