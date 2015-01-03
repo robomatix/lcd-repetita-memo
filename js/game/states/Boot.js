@@ -9,7 +9,12 @@ repetita.Boot.prototype = {
         this.load.image('preloadbar', 'assets/images/preload-bar.png');
     },
     create: function() {
+
+        // Main Variables
+        this.game.mainTint = 0x165016;
+
         this.game.stage.backgroundColor = '#aad400';
+
 
         //  Unless you specifically know your game needs to support multi-touch I would recommend setting this to 1
         this.input.maxPointers = 1;
