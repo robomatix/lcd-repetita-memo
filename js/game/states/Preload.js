@@ -11,6 +11,8 @@ repetita.Preload.prototype = {
 
         this.load.setPreloadSprite(this.preloadBar);
 
+        this.load.image('square', 'assets/images/square.png');
+
         this.load.bitmapFont('mainFont', 'assets/fonts/silkscreen-white-88/font.png', 'assets/fonts/silkscreen-white-88/font.fnt');
 
         this.load.onLoadComplete.add(this.onLoadComplete, this);
