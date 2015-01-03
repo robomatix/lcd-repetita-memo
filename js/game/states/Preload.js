@@ -1,5 +1,7 @@
 repetita.Preload = function() {
+
     this.ready = false;
+
 };
 
 repetita.Preload.prototype = {
