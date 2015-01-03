@@ -10,22 +10,39 @@ repetita.Game.prototype = {
         this.gameStartText.y = this.game.height / 2 - this.gameStartText.textHeight / 2;
         this.gameStartText.tint = 0x165016;
 
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
         this.simon = this.game.add.group();
 
+        var i = 0;
+        while ( i < 18 ) {
 
-        for (var i = 0; i < 16; i++) {
-
-            var x, y, square, squareScale;
+            var x, y, squareScale, square;
 
             x = this.game.rnd.integerInRange(50, this.game.world.width - 50);
             y = this.game.rnd.integerInRange(50, this.game.world.height - 50);
-            squareScale = this.game.rnd.integerInRange(1, 4);
+            squareScale = this.game.rnd.integerInRange( 1, 4 );
+
 
             square = new Square(this.game, x, y);
-            square.scale.setTo(squareScale);
-            this.simon.add(square);
 
-            // For the next step : no squares overlaping -> http://docs.phaser.io/Phaser.Physics.Arcade.html#overlap
+            square.scale.setTo(squareScale);
+
+            this.game.physics.enable([square], Phaser.Physics.ARCADE);
+
+            if (!this.game.physics.arcade.overlap(square, this.simon)) {
+
+                this.simon.add(square);
+                console.log('NO overlap');
+                i++;
+
+            } else {
+
+                console.log('OOOOOverlap');
+                square.tint=0xff0000;
+                square.destroyThis();
+
+            }
 
         }
 
@@ -33,7 +50,7 @@ repetita.Game.prototype = {
     },
     update: function () {
 
-        if(this.game.input.activePointer.justPressed()) {
+        if (this.game.input.activePointer.justPressed()) {
 
             this.game.state.start('Game');
 
@@ -41,6 +58,8 @@ repetita.Game.prototype = {
 
     },
     shutdown: function () {
+
+        this.simon.destroy();
 
     }
 
