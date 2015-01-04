@@ -14,6 +14,7 @@ repetita.Game.prototype = {
 
         this.simon = this.game.add.group();
 
+        /*
         var i = 0;
         while ( i < 18 ) {
 
@@ -30,6 +31,7 @@ repetita.Game.prototype = {
 
             this.game.physics.enable([square], Phaser.Physics.ARCADE);
 
+
             if (!this.game.physics.arcade.overlap(square, this.simon)) {
 
                 this.simon.add(square);
@@ -44,7 +46,12 @@ repetita.Game.prototype = {
 
             }
 
-        }
+        }*/
+
+        /* add a timer to generate squares
+         ******************************************************/
+        this.squaresGenerator = this.game.time.events.repeat(250,18, this.generateSquares, this);
+        this.squaresGenerator.timer.start();
 
 
     },
@@ -60,6 +67,37 @@ repetita.Game.prototype = {
     shutdown: function () {
 
         this.simon.destroy();
+
+    },
+    generateSquares: function () {
+
+        var x, y, squareScale, square;
+
+        x = this.game.rnd.integerInRange(50, this.game.world.width - 50);
+        y = this.game.rnd.integerInRange(50, this.game.world.height - 50);
+        squareScale = this.game.rnd.integerInRange( 1, 4 );
+
+
+        square = new Square(this.game, x, y);
+
+        square.scale.setTo(squareScale);
+
+        this.game.physics.enable([square], Phaser.Physics.ARCADE);
+
+
+        if (!this.game.physics.arcade.overlap(square, this.simon)) {
+
+            this.simon.add(square);
+            console.log('NO overlap');
+
+
+        } else {
+
+            console.log('OOOOOverlap');
+            square.tint=0xff0000;
+            square.destroyThis();
+
+        }
 
     }
 
